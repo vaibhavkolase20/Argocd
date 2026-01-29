@@ -1,0 +1,178 @@
+📘 Introduction to GitOps & ArgoCD
+(GitOps आणि ArgoCD परिचय)
+English:
+
+GitOps is a modern DevOps practice where Git is the single source of truth for infrastructure and application deployment.
+ArgoCD is a GitOps tool used to deploy applications on Kubernetes.
+
+मराठी:
+
+GitOps ही एक आधुनिक DevOps पद्धत आहे जिथे Git हे एकमेव source of truth असते.
+ArgoCD हे Kubernetes मध्ये application deploy करण्यासाठी वापरले जाणारे GitOps tool आहे.
+
+🔁 What is GitOps? – DVAO Principle
+English:
+
+GitOps follows DVAO:
+
+D – Declarative: System state is defined in YAML files
+
+V – Versioned: Everything is stored in Git
+
+A – Automated: Changes are auto-applied
+
+O – Observed: System continuously checks actual vs desired state
+
+मराठी:
+
+GitOps DVAO principle वर चालते:
+
+D – Declarative: YAML फाइलमध्ये system state define
+
+V – Versioned: सगळं Git मध्ये version control
+
+A – Automated: बदल आपोआप apply होतात
+
+O – Observed: Actual आणि desired state सतत compare होते
+
+❓ What is GitOps?
+English:
+
+GitOps is a method where:
+
+Git contains desired infrastructure & app state
+
+Any change in Git = change in cluster
+
+No manual kubectl commands needed
+
+मराठी:
+
+GitOps म्हणजे:
+
+Infrastructure आणि app state Git मध्ये असते
+
+Git मधील बदल म्हणजे cluster मधील बदल
+
+Manual kubectl commands लागतात नाहीत
+
+⚙️ How GitOps Works?
+English:
+
+Developer pushes code/YAML to Git
+
+GitOps tool (ArgoCD/FluxCD) detects change
+
+Tool syncs Git state with Kubernetes
+
+Cluster matches Git automatically
+
+मराठी:
+
+Developer Git मध्ये code/YAML push करतो
+
+GitOps tool बदल ओळखतो
+
+Tool Kubernetes ला sync करतो
+
+Cluster Git प्रमाणे update होतो
+
+⚖️ GitOps vs Traditional CI/CD
+GitOps	Traditional CI/CD
+Git is source of truth	CI tool controls deploy
+Pull-based	Push-based
+More secure	Less secure
+Auto rollback	Manual rollback
+मराठी:
+GitOps	Traditional CI/CD
+Git एकमेव source	CI tool deploy करतो
+Pull model	Push model
+जास्त secure	कमी secure
+Auto rollback	Manual rollback
+🚀 What is ArgoCD?
+English:
+
+ArgoCD is:
+
+A Kubernetes-native GitOps tool
+
+Monitors Git repo
+
+Syncs Kubernetes automatically
+
+मराठी:
+
+ArgoCD:
+
+Kubernetes साठी GitOps tool
+
+Git repo monitor करतो
+
+Kubernetes auto sync करतो
+
+🤔 Why ArgoCD?
+English:
+
+We use ArgoCD because:
+
+Automatic deployment
+
+Easy rollback
+
+UI + CLI support
+
+Secure (no direct cluster access)
+
+मराठी:
+
+ArgoCD वापरण्याचे कारण:
+
+Automatic deployment
+
+सोपा rollback
+
+UI आणि CLI
+
+जास्त security
+
+🔄 How ArgoCD Works?
+English:
+
+ArgoCD connects to Git repo
+
+Reads Kubernetes manifests
+
+Compares desired vs actual state
+
+Syncs cluster automatically
+
+मराठी:
+
+ArgoCD Git repo connect करतो
+
+YAML files वाचतो
+
+Desired आणि actual state compare करतो
+
+Cluster auto update करतो
+
+🔍 ArgoCD vs Jenkins X vs FluxCD
+Feature	ArgoCD	Jenkins X	FluxCD
+UI	Yes	Limited	No
+Kubernetes native	Yes	Yes	Yes
+Learning curve	Easy	Hard	Medium
+Popularity	⭐⭐⭐⭐	⭐⭐	⭐⭐⭐
+मराठी:
+Feature	ArgoCD	Jenkins X	FluxCD
+UI	आहे	कमी	नाही
+Kubernetes native	हो	हो	हो
+शिकायला	सोपं	अवघड	मध्यम
+वापर	जास्त	कमी	मध्यम
+✅ Interview One-Line Summary
+English:
+
+GitOps uses Git as the source of truth, and ArgoCD ensures Kubernetes always matches Git.
+
+मराठी:
+
+GitOps मध्ये Git हे source of truth असते आणि ArgoCD Kubernetes ला Git प्रमाणे ठेवतो.
