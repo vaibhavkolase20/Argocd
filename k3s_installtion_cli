@@ -1,0 +1,118 @@
+k3s install करा (Main Step)
+
+curl -sfL https://get.k3s.io | sh -
+
+हा command run केल्यावर
+
+k3s download होईल
+
+4️ k3s service check करा
+sudo systemctl status k3s
+
+Output मध्ये active (running) दिसले पाहिजे.
+
+ArgoCD साठी Namespace तयार करा
+
+ArgoCD वेगळ्या namespace मध्ये install करतो.
+
+kubectl create namespace argocd
+
+Check करा:
+
+kubectl get ns
+2️⃣ ArgoCD install करा
+
+Official manifest वापरून install करा.
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+हा command run केल्यावर खालील components install होतात:
+
+
+3️⃣ Pods check करा
+kubectl get pods -n argocd
+
+ArgoCD service expose करा
+
+Default service ClusterIP असते त्यामुळे browser मध्ये open होत नाही.
+
+NodePort करा:
+
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
+
+Step 1️⃣ ArgoCD ConfigMap update करा
+
+हा command run करा:
+
+kubectl patch configmap argocd-cmd-params-cm -n argocd \
+--type merge \
+-p '{"data":{"server.insecure":"true"}}'
+Step 2️⃣ Check करा value add झाली का
+kubectl get configmap argocd-cmd-params-cm -n argocd -o yaml
+
+Output मध्ये दिसेल:
+
+data:
+  server.insecure: "true"
+Step 3️⃣ ArgoCD server restart करा
+kubectl rollout restart deployment argocd-server -n argocd
+Step 4️⃣ Pods check करा
+kubectl get pods -n argocd
+
+सर्व pods Running असले पाहिजेत.
+
+Step 5️⃣ Service check करा
+kubectl get svc argocd-server -n argocd
+
+Example:
+
+argocd-server NodePort 80:31808 443:31265
+
+Step 7️⃣ Password मिळवा
+kubectl get secret argocd-initial-admin-secret -n argocd \
+-o jsonpath="{.data.password}" | base64 -d
+
+3️⃣ ArgoCD CLI install करा
+
+Server मध्ये हा command run करा:
+
+curl -sSL -o argocd \
+https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+
+Permission द्या:
+
+chmod +x argocd
+
+Move करा:
+
+mv argocd /usr/local/bin/
+
+Check करा:
+
+argocd version
+4️⃣ CLI login करा
+argocd login localhost:31808 --insecure
+
+
+5️⃣ Login check करा
+argocd account get-user-info
+
+Output example:
+
+Logged In: true
+Username: admin
+6️⃣ Test Application deploy करा
+
+Example command:
+
+argocd app create guestbook \
+--repo https://github.com/argoproj/argocd-example-apps.git \
+--path guestbook \
+--dest-server https://kubernetes.default.svc \
+--dest-namespace default
+
+Deploy करा:
+
+argocd app sync guestbook
+7️⃣ Pods check करा
+kubectl get pods
